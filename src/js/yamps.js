@@ -92,6 +92,7 @@ export default class InteractiveMap{
             zoom: 10,
         });
         this.map.events.add('click', (e) => this.onClick(e.get('coords')));
+        // this.map.events.add('click', (e) => this.onDocumentClick(e));
         this.map.geoObjects.add(this.clusterer);
     }
 
@@ -109,7 +110,7 @@ export default class InteractiveMap{
 
     createPlacemark(coords) {
         const placemark = new ymaps.Placemark(coords);
-        placemark.events.add('click', () => {
+        placemark.events.add('click', (e) => {
             const coords = e.get('target').geometry.getCoordinates();
             this.onClick(coords);
         });
