@@ -76,15 +76,20 @@ export default class Review {
         // reviewList.appendChild(div);
 
         for (const item of reviews) {
-            const div = document.createElement('div');
-            div.classList.add('review-item');
-            div.innerHTML = `
-            <div>
-                <b>${item.name}</b> [${item.place}]
-            </div>
-            <div>${item.text}</div>
-            `;
-            reviewList.appendChild(div);
+            console.log(item.coords);
+            console.log(coords);
+            console.log(item.coords === coords);
+            if (item.coords === coords){
+                const div = document.createElement('div');
+                div.classList.add('review-item');
+                div.innerHTML = `
+                <div>
+                    <b>${item.name}</b> [${item.place}]
+                </div>
+                <div>${item.text}</div>
+                `;
+                reviewList.appendChild(div);
+            }
         }
 
         return root;
@@ -98,8 +103,8 @@ export default class Review {
         // const form = this.createForm(coords, list); //откуда здесь берутся координаты? Я так понимаю из 94 строчки кода yamps
         // const reviews = this.saveReviews();
         const reviews = this.reviews;
-        console.log(reviews[0]);
-        console.log(coords);
+        console.log(reviews);
+        // console.log(coords);
         const form = this.createForm(coords, reviews)
 
         this.map.openBalloon(coords, form.innerHTML);
@@ -132,6 +137,7 @@ export default class Review {
             console.log(reviewList);
             const coords = JSON.parse(reviewForm.dataset.coords);
             const list = {
+                    coords: coords,
                     name: document.querySelector('[data-role=review-name]').value,
                     place: document.querySelector('[data-role=review-place]').value,
                     text: document.querySelector('[data-role=review-text]').value,
@@ -144,18 +150,12 @@ export default class Review {
             //         text: document.querySelector('[data-role=review-text]').value,
             //     },
             // };
-            try {
                 // await this.callApi('add', data);
                 this.saveReviews(list);
                 // const form = this.createForm(coords);
                 // this.map.openBalloon(coords, form.innerHTML);
-
                 this.map.createPlacemark(coords);
                 this.map.closeBalloon();
-            } catch (e) {
-                const formError = document.querySelector('.form-error');
-                formError.innerText = e.message;
-            }
         }
     }
 }
