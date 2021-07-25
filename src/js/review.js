@@ -37,16 +37,16 @@ export default class Review {
         document.body.addEventListener('click', this.onDocumentClick.bind(this)); 
     }
 
-    // async localStorage() {
+    // localStorage() {
 
-    //     storage.data = await JSON.stringify({
+        // storage.data = JSON.stringify({
     //         coords: e.get('coords'),
     //         review: {
     //             name: document.querySelector('[data-role=review-name]').value,
     //             place: document.querySelector('[data-role=review-place]').value,
     //             text: document.querySelector('[data-role=review-text]').value,
     //         }
-    //     })
+        // })
     // }
 
     // async callApi(method, body = {}) {
