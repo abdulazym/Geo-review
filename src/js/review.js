@@ -76,10 +76,10 @@ export default class Review {
         // reviewList.appendChild(div);
 
         for (const item of reviews) {
-            console.log(item.coords);
-            console.log(coords);
-            console.log(item.coords === coords);
-            if (item.coords === coords){
+            console.log(parseFloat(item.coords));
+            console.log(parseFloat(coords));
+            console.log(parseFloat(item.coords) === parseFloat(coords));
+            if (parseFloat(item.coords) === parseFloat(coords)){
                 const div = document.createElement('div');
                 div.classList.add('review-item');
                 div.innerHTML = `
