@@ -26,7 +26,7 @@ module.exports = {
         filename: 'js/[name].[fullhash].js',
         path: path.resolve('dist')
     },
-    devtool: 'source-map',
+    // devtool: 'source-map',
     module: { rules },
     optimization: {
         minimizer: [
@@ -39,7 +39,7 @@ module.exports = {
                     ecma: 6,
                     mangle: true
                 },
-                sourceMap: true
+                // sourceMap: true
             })
         ]
     },
