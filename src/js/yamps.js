@@ -1,67 +1,13 @@
-// function initMap() {
-//     ymaps.ready(() => {
-//         let moscowPoint = new ymaps.Map("map", {
-//             center: [55.76, 37.6],
-//             zoom: 11,
-//             controls: [],
-//         });
-
-//         // let placemark = new ymaps.Placemark(moscowPoint.getCenter(), {
-//         //     balloonContentHeader: '<h2>Отзыв:</h2>',
-//         //     balloonContentBody: [
-//         //         '<form>'+
-//         //         '<input name="name" placeholder="Укажите ваше имя"><br>' +
-//         //         '<input name="place" placeholder="Укажите место"><br>' +
-//         //         '<textarea class="textarea" placeholder="Оставьте отзыв"></textarea><br>' +
-//         //         '<button class="add-button">Добавить</button>' +
-//         //         '<form>'
-//         //     ]
-//         // });
-//         const myCollection = new ymaps.GeoObjectCollection({}, { // где то в 1 параметре null??
-//             draggable: false,
-//             balloonContentHeader: '<h2>Отзыв:</h2>',
-//             balloonContentBody: [
-//                 '<form>'+
-//                 '<input name="name" placeholder="Укажите ваше имя"><br>' +
-//                 '<input name="place" placeholder="Укажите место"><br>' +
-//                 '<textarea class="textarea" placeholder="Оставьте отзыв"></textarea><br>' +
-//                 '<button class="add-button">Добавить</button>' +
-//                 '<form>'
-//             ]
-//         });
-
-//         moscowPoint.events.add('click', function(e) {
-//             let coords = [];
-//             let coordObj = e.get('coords');
-            
-//             coords = coordObj.concat(coordObj);
-//             console.log(coords);
-//             for (let coord of coords) {
-//                 myCollection.add(new ymaps.Placemark(coord));
-//             }
-//             // moscowPoint.geoObjects.add(myCollection);
-//             // myCollection.balloon.open();
-//         });
-//         // moscowPoint.geoObjects.add(placemark);
-//         // // Откроем балун на метке.
-//         // placemark.balloon.open();
-//     })
-// }
-
-// export {
-//     initMap
-// }
-
 export default class InteractiveMap{
     constructor(mapId, onClick) {
-        this.mapId = mapId; /// ??
+        this.mapId = mapId; 
         this.onClick = onClick;
     } 
 
     async init() {
         await this.injectYMapsScript();
         await this.loadYMaps();
-        this.initMap(); //почему нет await? 
+        this.initMap();  
     }
 
     injectYMapsScript() {
@@ -94,7 +40,6 @@ export default class InteractiveMap{
             zoom: 10,
         });
         this.map.events.add('click', (e) => this.onClick(e.get('coords')));
-        // this.map.events.add('click', (e) => this.onDocumentClick(e));
         this.map.geoObjects.add(this.clusterer);
     }
 
@@ -112,12 +57,9 @@ export default class InteractiveMap{
 
     createPlacemark(coords) {
         const placemark = new ymaps.Placemark(coords);
-        console.log(coords);
         placemark.events.add('click', (e) => {
             const clickCoords = e.get('coords');
             this.onClick(clickCoords);
-            console.log(clickCoords);
-            console.log(clickCoords == coords);
         });
         this.clusterer.add(placemark);
     }
